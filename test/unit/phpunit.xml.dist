@@ -1,0 +1,17 @@
+<phpunit bootstrap="bootstrap.php"
+         colors="true"
+         backupGlobals="false"
+         backupStaticAttributes="false"
+         syntaxCheck="false"
+         stopOnFailure="false"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         printerClass="Aoepeople_Phpunit_Printer_VerboseResultPrinter">
+    <testsuite name="Tests">
+        <directory suffix="Test.php">./tests</directory>
+    </testsuite>
+    <php>
+        <!--<env name="TEST_BUILD" value="" />-->
+    </php>
+</phpunit>
