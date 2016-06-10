@@ -1,6 +1,6 @@
 <?php
 
-class Counter 
+class Counter {
 
     /**
      * @var PDO
