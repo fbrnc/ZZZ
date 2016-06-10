@@ -15,7 +15,7 @@ node {
     sh '/usr/local/bin/box.phar build'
 
     stage "Publish Artifact"
-    sh 'aws s3 cp /tmp/build.tar.gz s3://aoeplay-artifacts/hitcounter/${BUILD_NUMBER}/build.tar.gz'
+    sh 'aws s3 cp hitcounter.phar s3://aoeplay-artifacts/hitcounter/${BUILD_NUMBER}/hitcounter.phar'
 
     stage 'Unit Tests'
     dir('test/unit') {
