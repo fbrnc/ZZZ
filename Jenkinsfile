@@ -1,5 +1,6 @@
-stage "Build"
 node {
+
+    stage "Checkout"
     deleteDir()
 
     checkout scm
@@ -7,18 +8,18 @@ node {
 
     sh '/usr/local/bin/composer --no-interaction install'
 
-    sh 'tar -czf /tmp/build.tar.gz .'
+    stage "Static Code Analysis"
+    sh 'test/static/phplint.sh src web > /dev/null'
 
+    stage "Package"
+    sh '/usr/local/bin/box.phar build'
+
+    stage "Publish Artifact"
     sh 'aws s3 cp /tmp/build.tar.gz s3://aoeplay-artifacts/hitcounter/${BUILD_NUMBER}/build.tar.gz'
 
-    archive '/tmp/build.tar.gz'
-}
-
-stage 'Unit Tests'
-node {
+    stage 'Unit Tests'
     dir('test/unit') {
         sh '/usr/local/bin/phpunit --log-junit /tmp/junit.xml'
     }
+    
 }
-
-stage 'Deploy to tst'
