@@ -12,7 +12,7 @@ node {
     sh 'test/static/phplint.sh src web > /dev/null'
 
     stage "Package"
-    sh '/usr/local/bin/box.phar build'
+    sh '/usr/local/bin/box build'
 
     stage "Publish Artifact"
     sh 'aws s3 cp hitcounter.phar s3://aoeplay-artifacts/hitcounter/${BUILD_NUMBER}/hitcounter.phar'
