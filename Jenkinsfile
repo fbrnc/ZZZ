@@ -11,7 +11,7 @@ node {
         sh '/usr/local/bin/composer --no-interaction install'
 
         stage "Static Code Analysis"
-        sh 'tests/static/phplint.sh src web > /dev/null'
+        sh '../tests/static/phplint.sh src web > /dev/null'
 
         stage "Package"
         dir('nano-app') {
@@ -26,5 +26,17 @@ node {
     dir('tests/unit') {
         sh '/usr/local/bin/phpunit --log-junit /tmp/junit.xml'
     }
-    
+
+    withEnv(["Environment=stage"]) {
+        input "Deploy to ${Environment}?"
+        stage "Deploy to ${Environment}"
+        echo "Deploying to ${Environment}"
+    }
+
+    withEnv(["Environment=prod"]) {
+        input "Deploy to ${Environment}?"
+        stage "Deploy to ${Environment}"
+        echo "Deploying to ${Environment}"
+    }
+
 }
