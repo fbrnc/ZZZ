@@ -17,7 +17,7 @@ node {
 
         stage "Package"
         sh '/usr/local/bin/box build'
-        step([$class: 'ArtifactArchiver', artifacts: '../artifacts/hitcounter.phar', fingerprint: true])
+        step([$class: 'ArtifactArchiver', artifacts: 'artifacts/hitcounter.phar', fingerprint: true])
 
         stage "Publish Artifact"
         sh 'aws s3 cp ../artifacts/hitcounter.phar s3://aoeplay-artifacts/hitcounter/${BUILD_NUMBER}/hitcounter.phar'
@@ -26,7 +26,7 @@ node {
     stage 'Unit Tests'
     dir('tests/unit') {
         sh "/usr/local/bin/phpunit --log-junit ../../artifacts/junit.xml"
-        step([$class: 'JUnitResultArchiver', testResults: '../../artifacts/junit.xml'])
+        step([$class: 'JUnitResultArchiver', testResults: 'artifacts/junit.xml'])
     }
 
     withEnv(["Environment=stage"]) {

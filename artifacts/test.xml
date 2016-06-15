@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="Tests" tests="3" assertions="4" failures="0" errors="0" time="0.006258">
+    <testsuite name="CounterTest" file="/var/www/demo/tests/unit/tests/CounterTest.php" tests="3" assertions="4" failures="0" errors="0" time="0.006258">
+      <testcase name="increaseCount" class="CounterTest" file="/var/www/demo/tests/unit/tests/CounterTest.php" line="24" assertions="1" time="0.005478"/>
+      <testcase name="counterDoesNotChangeIfNotIncreased" class="CounterTest" file="/var/www/demo/tests/unit/tests/CounterTest.php" line="35" assertions="1" time="0.000284"/>
+      <testcase name="zeroAfterReseting" class="CounterTest" file="/var/www/demo/tests/unit/tests/CounterTest.php" line="46" assertions="2" time="0.000495"/>
+    </testsuite>
+  </testsuite>
+</testsuites>
