@@ -6,7 +6,7 @@ node {
     checkout scm
     // checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/fbrnc/cd-demo-nanoservice.git']]])
 
-    sh "mkdir artifacts"
+    sh "rm -rf artifacts ; mkdir artifacts"
 
     dir('nano-app') {
         stage "Build"
