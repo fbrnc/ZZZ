@@ -16,10 +16,10 @@ node {
 
         stage "Package"
         sh '/usr/local/bin/box build'
+        step([$class: 'ArtifactArchiver', artifacts: '../artifacts/hitcounter.phar', fingerprint: true])
 
         stage "Publish Artifact"
         sh 'aws s3 cp ../artifacts/hitcounter.phar s3://aoeplay-artifacts/hitcounter/${BUILD_NUMBER}/hitcounter.phar'
-        step([$class: 'ArtifactArchiver', artifacts: '../artifacts/hitcounter.phar', fingerprint: true])
     }
 
     stage 'Unit Tests'
