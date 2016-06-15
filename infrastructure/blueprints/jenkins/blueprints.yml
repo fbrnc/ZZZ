@@ -1,0 +1,15 @@
+blueprints:
+  - stackname: 'demo-jenkins'
+    template: 'jenkins.template'
+    parameters:
+      VPC: '{output:demo-global-vpc:VPC}'
+      PublicSubnets: '{output:demo-global-vpc-subnets:FirstPublicSubnet},{output:demo-global-vpc-subnets:SecondPublicSubnet},{output:demo-global-vpc-subnets:ThirdPublicSubnet}'
+      PrivateSubnets: '{output:demo-global-vpc-subnets:FirstPrivateSubnet},{output:demo-global-vpc-subnets:SecondPrivateSubnet},{output:demo-global-vpc-subnets:ThirdPrivateSubnet}'
+      KeyName: '{var:KeyName}'
+      Subdomain: 'jenkins'
+      HostedZoneName: '{var:HostedZoneName}'
+      TrustedSourcesHttp: '{resource:demo-global-vpc-trustedsources:TrustedSourcesHttp}'
+      BastionSg: '{resource:demo-global-vpc-bastion:BastionSg}'
+      Backup: 's3://{output:demo-global-s3-jenkinsbackup:BucketName}/backup/'
+      JenkinsInstanceProfile: '{output:demo-iam:JenkinsInstanceProfile}'
+      ServerCertificateArn: '{var:AcmCertificateArn}'

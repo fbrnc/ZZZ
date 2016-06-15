@@ -1,0 +1,26 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Trusted Sources",
+  "Parameters": {
+    "VPC": {
+      "Type": "AWS::EC2::VPC::Id"
+    },
+    "CidrIp": {
+      "Type": "String"
+    }
+  },
+  "Resources": {
+    "TrustedSourcesHttp": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "VpcId": {"Ref": "VPC"},
+        "GroupDescription": "Trusted Sources (22,80,443)",
+        "SecurityGroupIngress": [
+          {"IpProtocol": "tcp", "FromPort": "80",  "ToPort": "80",  "CidrIp": { "Ref": "CidrIp" }},
+          {"IpProtocol": "tcp", "FromPort": "443", "ToPort": "443", "CidrIp": { "Ref": "CidrIp" }}
+        ]
+      }
+    }
+
+  }
+}

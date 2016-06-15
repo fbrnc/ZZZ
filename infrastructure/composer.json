@@ -1,0 +1,18 @@
+{
+  "name": "aoepeople/cd-demo",
+  "authors": [{
+    "name": "Fabrizio Branca",
+    "email": "mail@firstname-lastname.de"
+  }],
+  "require": {
+    "aoepeople/stackformation": "dev-master",
+    "aoepeople/awsinspector": "dev-master",
+    "aoepeople/cfn-vpc": "dev-master",
+    "aoepeople/cfn-lambdahelper": "dev-master"
+  },
+  "repositories": [
+    {"type": "vcs", "url": "https://github.com/AOEpeople/cfn-lambdahelper.git"},
+    {"type": "vcs", "url": "https://github.com/AOEpeople/cfn-vpc.git"}
+  ],
+  "config": {"bin-dir": "bin"}
+}

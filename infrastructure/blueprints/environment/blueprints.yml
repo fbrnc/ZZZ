@@ -1,0 +1,45 @@
+blueprints:
+
+  - stackname: 'demo-env-{env:Environment}-setup'
+    template: 'setup.template'
+    Capabilities: 'CAPABILITY_IAM'
+    parameters:
+      EnvironmentName: '{env:Environment}'
+      Vpc: '{output:demo-global-vpc:VPC}'
+      PublicSubnets: '{output:demo-global-vpc-subnets:FirstPublicSubnet},{output:demo-global-vpc-subnets:SecondPublicSubnet},{output:demo-global-vpc-subnets:ThirdPublicSubnet}'
+      PrivateSubnets: '{output:demo-global-vpc-subnets:FirstPrivateSubnet},{output:demo-global-vpc-subnets:SecondPrivateSubnet},{output:demo-global-vpc-subnets:ThirdPrivateSubnet}'
+      PasswordGeneratorArn: '{output:demo-cfn-lambdahelper:PasswordGeneratorArn}'
+      DomainName: '{var:HostedZoneName}'
+      HostedZoneId: '{var:HostedZoneId}'
+      InternalDomainName: '{parameter:demo-global-vpc:InternalHostedZoneName}'
+      InternalHostedZoneId: '{resource:demo-global-vpc:InternalHostedZone}'
+      BastionSg: '{resource:demo-global-vpc-bastion:BastionSg}'
+
+
+
+  - stackname: 'demo-env-{env:Environment}-deploy{env:DEPLOY_ID}'
+    template: 'deployment.template'
+    parameters:
+      Build: '{env:BUILD}'
+      BuildPackage: 's3://{output:demo-global-s3-artifacts:BucketName}/hitcounter/{env:BUILD}/hitcounter.phar'
+      KeyPair: '{var:KeyName}'
+      AppInstanceProfile: '{output:demo-iam:AppInstanceProfile}'
+      EnvironmentName: '{env:Environment}'
+      DeployId: '{env:DEPLOY_ID}'
+      InternalDomainName: '{parameter:demo-global-vpc:InternalHostedZoneName}'
+      InstanceCounter: '{output:demo-cfn-lambdahelper:CountAsgInstancesArn}'
+      GreenBlueSwitcher: '{output:demo-cfn-lambdahelper:GreenBlueSwitcherArn}'
+      StackDeleter: '{output:demo-cfn-lambdahelper:StackDeleterArn}'
+      BastionSg: '{resource:demo-global-vpc-bastion:BastionSg}'
+      OldStacksBehavior: '{env:DELETE_OLD_STACKS:delete}'
+      PrivateSubnets: '{output:demo-global-vpc-subnets:FirstPrivateSubnet},{output:demo-global-vpc-subnets:SecondPrivateSubnet},{output:demo-global-vpc-subnets:ThirdPrivateSubnet}'
+      DbPwd: '{output:demo-env-tst-setup:DbPwd}'
+      Elb: '{resource:demo-env-tst-setup:Elb}'
+      AppSg: '{resource:demo-env-tst-setup:AppSg}'
+    tags:
+      Build: '{env:BUILD}'
+      DeployId: '{env:DEPLOY_ID}'
+      # following tags are also used by the stack-deleter
+      Project: 'demo'
+      Environment: '{env:Environment}'
+      App: 'hitcounter'

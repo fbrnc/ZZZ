@@ -1,0 +1,17 @@
+blueprints:
+
+  - stackname: 'demo-global-s3-jenkinsbackup'
+    template: 'buckets.template'
+    Capabilities: 'CAPABILITY_IAM'
+    parameters:
+      BucketName: 'aoeplay-jenkins-backup'
+      CreateReadUser: 'no'
+      CreateWriteUser: 'no'
+
+  - stackname: 'demo-global-s3-artifacts'
+    template: 'buckets.template'
+    Capabilities: 'CAPABILITY_IAM'
+    parameters:
+      BucketName: 'aoeplay-artifacts'
+      CreateReadUser: 'no'
+      CreateWriteUser: 'no'

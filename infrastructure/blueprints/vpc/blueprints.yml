@@ -1,0 +1,56 @@
+blueprints:
+
+  - stackname: 'demo-global-vpc'
+    description: 'VPC for global services (Jenkins, Monitoring, ...)'
+    template: '../cfn-vpc/vpc.template'
+    vars:
+      FirstTwoOctets: '10.100'
+    parameters:
+      VpcCidrBlock: '{var:FirstTwoOctets}.0.0/16'
+      VpcName: 'vpc-global'
+      InternalHostedZoneName: 'aoeplay-global-internal.com'
+
+
+
+  - stackname: 'demo-global-vpc-subnets'
+    description: 'VPC subnets for global services (Jenkins, Monitoring, ...)'
+    vars:
+      FirstTwoOctets: '10.100'
+    template:
+      First: '../cfn-vpc/az.template'
+      Second: '../cfn-vpc/az.template'
+      Third: '../cfn-vpc/az.template'
+    parameters:
+      '*VPC': '{output:demo-global-vpc:VPC}'
+      '*InternetGateway': '{output:demo-global-vpc:InternetGateway}'
+      # One public subnet in each AZ
+      FirstPublicSubnetCidrBlock:  '{var:FirstTwoOctets}.1.0/24'
+      SecondPublicSubnetCidrBlock:  '{var:FirstTwoOctets}.2.0/24'
+      ThirdPublicSubnetCidrBlock:  '{var:FirstTwoOctets}.3.0/24'
+      # One private subnet in each AZ
+      FirstPrivateSubnetCidrBlock: '{var:FirstTwoOctets}.11.0/24'
+      SecondPrivateSubnetCidrBlock: '{var:FirstTwoOctets}.12.0/24'
+      ThirdPrivateSubnetCidrBlock: '{var:FirstTwoOctets}.13.0/24'
+      # AZ configuration (please not that depending on the region you might not have access to every AZ)
+      FirstAZ: '{env:AWS_DEFAULT_REGION}a'
+      SecondAZ: '{env:AWS_DEFAULT_REGION}b'
+      ThirdAZ: '{env:AWS_DEFAULT_REGION}c'
+
+
+
+  - stackname: 'demo-global-vpc-bastion'
+    template: 'bastion.template'
+    parameters:
+      PublicSubnet: '{output:demo-global-vpc-subnets:FirstPublicSubnet}'
+      KeyPair: '{var:KeyName}'
+      Vpc: '{output:demo-global-vpc:VPC}'
+      EnvironmentName: 'all'
+      SSHLocation: '{env:SSHLocation:0.0.0.0/0}'
+
+
+
+  - stackname: 'demo-global-vpc-trustedsources'
+    template: 'sg_trustedsources.template'
+    parameters:
+      VPC: '{output:demo-global-vpc:VPC}'
+      CidrIp: '{env:SSHLocation:0.0.0.0/0}'
