@@ -2,6 +2,8 @@ node {
 
     stage "Checkout"
     deleteDir()
+    sh "env"
+    sh "mkdir ${WORKSPACE}/artifacts"
 
     checkout scm
     // checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/fbrnc/cd-demo-nanoservice.git']]])
@@ -17,23 +19,27 @@ node {
         sh '/usr/local/bin/box build'
 
         stage "Publish Artifact"
-        sh 'aws s3 cp hitcounter.phar s3://aoeplay-artifacts/hitcounter/${BUILD_NUMBER}/hitcounter.phar'
+        sh 'aws s3 cp ../artifacts/hitcounter.phar s3://aoeplay-artifacts/hitcounter/${BUILD_NUMBER}/hitcounter.phar'
     }
 
     stage 'Unit Tests'
     dir('tests/unit') {
-        sh '/usr/local/bin/phpunit --log-junit /tmp/junit.xml'
+        sh "/usr/local/bin/phpunit --log-junit ${WORKSPACE}/artifacts/junit.xml"
     }
 
     withEnv(["Environment=stage"]) {
-        stage "Deploy to ${env.Environment}"
-        input "Deploy to ${env.Environment}?"
+        stage "Deploy to ${env.Environment}", concurrency: 1
+        timeout(time: 10, unit: 'MINUTES') {
+            input "Proceed with deploying to ${env.Environment}?"
+        }
         echo "Deploying to ${env.Environment}"
     }
 
     withEnv(["Environment=prod"]) {
-        stage "Deploy to ${env.Environment}"
-        input "Deploy to ${env.Environment}?"
+        stage "Deploy to ${env.Environment}", concurrency: 1
+        timeout(time: 10, unit: 'MINUTES') {
+            input "Proceed with deploying to ${env.Environment}?"
+        }
         echo "Deploying to ${env.Environment}"
     }
 
