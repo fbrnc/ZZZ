@@ -26,15 +26,15 @@ node {
     }
 
     withEnv(["Environment=stage"]) {
-        input "Deploy to ${Environment}?"
-        stage "Deploy to ${Environment}"
-        echo "Deploying to ${Environment}"
+        input "Deploy to ${env.Environment}?"
+        stage "Deploy to ${env.Environment}"
+        echo "Deploying to ${env.Environment}"
     }
 
     withEnv(["Environment=prod"]) {
-        input "Deploy to ${Environment}?"
-        stage "Deploy to ${Environment}"
-        echo "Deploying to ${Environment}"
+        input "Deploy to ${env.Environment}?"
+        stage "Deploy to ${env.Environment}"
+        echo "Deploying to ${env.Environment}"
     }
 
 }
