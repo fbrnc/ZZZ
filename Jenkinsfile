@@ -2,10 +2,11 @@ node {
 
     stage "Checkout"
     deleteDir()
-    sh "mkdir artifacts"
 
     checkout scm
     // checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/fbrnc/cd-demo-nanoservice.git']]])
+
+    sh "mkdir artifacts"
 
     dir('nano-app') {
         stage "Build"
