@@ -2,8 +2,7 @@ node {
 
     stage "Checkout"
     deleteDir()
-    sh "env"
-    sh "mkdir ${WORKSPACE}/artifacts"
+    sh "mkdir artifacts"
 
     checkout scm
     // checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/fbrnc/cd-demo-nanoservice.git']]])
@@ -20,11 +19,13 @@ node {
 
         stage "Publish Artifact"
         sh 'aws s3 cp ../artifacts/hitcounter.phar s3://aoeplay-artifacts/hitcounter/${BUILD_NUMBER}/hitcounter.phar'
+        step([$class: 'ArtifactArchiver', artifacts: '../artifacts/hitcounter.phar', fingerprint: true])
     }
 
     stage 'Unit Tests'
     dir('tests/unit') {
-        sh "/usr/local/bin/phpunit --log-junit ${WORKSPACE}/artifacts/junit.xml"
+        sh "/usr/local/bin/phpunit --log-junit ../../artifacts/junit.xml"
+        step([$class: 'JUnitResultArchiver', testResults: '../../artifacts/junit.xml'])
     }
 
     withEnv(["Environment=stage"]) {
