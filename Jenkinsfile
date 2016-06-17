@@ -30,7 +30,7 @@ node {
     }
 
     withEnv(["Environment=stage"]) {
-        stage "Deploy to ${env.Environment}", concurrency: 1
+        stage concurrency: 1, name: "Deploy to ${env.Environment}"
         timeout(time: 10, unit: 'MINUTES') {
             input "Proceed with deploying to ${env.Environment}?"
         }
@@ -38,7 +38,7 @@ node {
     }
 
     withEnv(["Environment=prod"]) {
-        stage "Deploy to ${env.Environment}", concurrency: 1
+        stage concurrency: 1, name: "Deploy to ${env.Environment}"
         timeout(time: 10, unit: 'MINUTES') {
             input "Proceed with deploying to ${env.Environment}?"
         }
