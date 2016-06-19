@@ -5,9 +5,11 @@
     "email": "mail@firstname-lastname.de"
   }],
   "require": {
-    "aoepeople/stackformation": "*",
     "aoepeople/cfn-vpc": "dev-master",
     "aoepeople/cfn-lambdahelper": "dev-master"
+  },
+  "require-dev": {
+    "aoepeople/stackformation": "~3"
   },
   "repositories": [
     {"type": "vcs", "url": "https://github.com/AOEpeople/cfn-lambdahelper.git"},
