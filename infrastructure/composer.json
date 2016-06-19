@@ -9,9 +9,5 @@
     "aoepeople/cfn-lambdahelper": "dev-master",
     "aoepeople/stackformation": "~3"
   },
-  "repositories": [
-    {"type": "vcs", "url": "https://github.com/AOEpeople/cfn-lambdahelper.git"},
-    {"type": "vcs", "url": "https://github.com/AOEpeople/cfn-vpc.git"}
-  ],
   "config": {"bin-dir": "bin"}
 }

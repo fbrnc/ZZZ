@@ -27,7 +27,8 @@
         },
         "ManagedPolicyArns": [
           { "Ref": "JenkinsBackupWritePolicy"},
-          { "Ref": "JenkinsBuildBucketWritePolicy" }
+          { "Ref": "JenkinsBuildBucketWritePolicy" },
+          { "Ref": "DeployPolicy" } /* @see: iam_policy_deploy.template */
         ]
       }
     },

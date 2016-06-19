@@ -4,6 +4,7 @@ blueprints:
     template:
       - 'iam_role_jenkins.template'
       - 'iam_profile_app.template'
+      - 'iam_policy_deploy.template'
     description: 'IAM policies, users and roles, Security Groups'
     Capabilities: 'CAPABILITY_IAM'
     parameters:
