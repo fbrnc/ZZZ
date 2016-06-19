@@ -36,8 +36,7 @@ node {
             sh '/usr/local/bin/composer --ansi --no-dev --no-progress --no-interaction install'
         }
 
-        // withEnv(["Environment=tst", "DEPLOY_ID=${env.BUILD_NUMBER}", "AWS_DEFAULT_REGION=us-west-2", "USE_INSTANCE_PROFILE=1"]) {
-        withEnv(["Environment=tst", "DEPLOY_ID=${env.BUILD_NUMBER}"]) {
+        withEnv(["Environment=tst", "DEPLOY_ID=${env.BUILD_NUMBER}", "AWS_DEFAULT_REGION=us-west-2", "USE_INSTANCE_PROFILE=1"]) {
             dir('infrastructure') {
                 stage name: "Deploy to ${env.Environment}", concurrency: 1
                 // timeout(time: 10, unit: 'MINUTES') {
