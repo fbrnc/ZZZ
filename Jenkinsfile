@@ -29,20 +29,22 @@ node {
         step([$class: 'JUnitResultArchiver', testResults: 'artifacts/junit.xml'])
     }
 
-    withEnv(["Environment=stage"]) {
+    withEnv(["Environment=stage", "DEPLOY_ID=${env.BUILD_NUMBER}"]) {
         stage "Deploy to ${env.Environment}", concurrency: 1
         timeout(time: 10, unit: 'MINUTES') {
             input "Proceed with deploying to ${env.Environment}?"
         }
         echo "Deploying to ${env.Environment}"
+        sh '/usr/local/bin/stackformations blueprint:deploy \'demo-env-{env:Environment}-deploy{env:DEPLOY_ID}\''
     }
 
-    withEnv(["Environment=prod"]) {
+    withEnv(["Environment=prod", "DEPLOY_ID=${env.BUILD_NUMBER}"]) {
         stage "Deploy to ${env.Environment}", concurrency: 1
         timeout(time: 10, unit: 'MINUTES') {
             input "Proceed with deploying to ${env.Environment}?"
         }
         echo "Deploying to ${env.Environment}"
+        sh '/usr/local/bin/stackformations blueprint:deploy \'demo-env-{env:Environment}-deploy{env:DEPLOY_ID}\''
     }
 
 }
