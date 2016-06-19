@@ -26,8 +26,6 @@ node {
     stage 'Unit Tests'
     dir('tests/unit') {
         sh "/usr/local/bin/phpunit --log-junit ../../artifacts/junit.xml"
-        sh "tree -L 2"
-        sh "pwd"
     }
     step([$class: 'JUnitResultArchiver', testResults: '**/artifacts/junit.xml'])
 

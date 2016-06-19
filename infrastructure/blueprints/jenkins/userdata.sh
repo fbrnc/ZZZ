@@ -2,6 +2,10 @@
 
 CFN_SIGNAL_PARAMETERS='--stack {Ref:AWS::StackName} --resource AutoScalingGroup --region {Ref:AWS::Region}'
 
+function export_persist {
+    export "$1=$2"
+    echo "$1='$2'" >> /etc/environment
+}
 function error_exit {
     echo ">>> ERROR_EXIT: $1. Signaling error to wait condition..."
     /opt/aws/bin/cfn-signal --exit-code 1 --reason "$1" ${CFN_SIGNAL_PARAMETERS}
@@ -21,6 +25,7 @@ function done_exit {
 }
 trap "done_exit" EXIT
 
+export_persist AWS_DEFAULT_REGION '{Ref:AWS::Region}'
 
 BACKUP="{Ref:Backup}"
 if [ -z "${BACKUP}" ] ; then error_exit "No BACKUP set"; fi
