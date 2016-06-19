@@ -32,7 +32,7 @@ node {
     step([$class: 'JUnitResultArchiver', testResults: '**/artifacts/junit.xml'])
 
     withEnv(["Environment=stage", "DEPLOY_ID=${env.BUILD_NUMBER}"]) {
-        stage "Deploy to ${env.Environment}", concurrency: 1
+        stage name: "Deploy to ${env.Environment}", concurrency: 1
         timeout(time: 10, unit: 'MINUTES') {
             input "Proceed with deploying to ${env.Environment}?"
         }
@@ -41,7 +41,7 @@ node {
     }
 
     withEnv(["Environment=prod", "DEPLOY_ID=${env.BUILD_NUMBER}"]) {
-        stage "Deploy to ${env.Environment}", concurrency: 1
+        stage name: "Deploy to ${env.Environment}", concurrency: 1
         timeout(time: 10, unit: 'MINUTES') {
             input "Proceed with deploying to ${env.Environment}?"
         }
