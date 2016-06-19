@@ -48,7 +48,7 @@ wget https://phar.phpunit.de/phpunit-4.8.9.phar -O /usr/local/bin/phpunit || err
 chmod +x /usr/local/bin/phpunit || error_exit "Failed setting permissions for phpunit"
 
 # Install StackFormation
-wget https://github.com/AOEpeople/StackFormation/releases/download/2.0.1/stackformation.phar -O /usr/local/bin/stackformation || error_exit "Failed installing stackformation"
+wget https://github.com/AOEpeople/StackFormation/releases/download/3.0.0/stackformation.phar -O /usr/local/bin/stackformation || error_exit "Failed installing stackformation"
 chmod +x /usr/local/bin/stackformation || error_exit "Failed setting permissions for stackformation"
 
 # Install Jenkins
