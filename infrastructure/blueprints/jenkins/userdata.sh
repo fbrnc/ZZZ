@@ -26,6 +26,7 @@ function done_exit {
 trap "done_exit" EXIT
 
 export_persist AWS_DEFAULT_REGION '{Ref:AWS::Region}'
+export_persist USE_INSTANCE_PROFILE '1'
 
 BACKUP="{Ref:Backup}"
 if [ -z "${BACKUP}" ] ; then error_exit "No BACKUP set"; fi
@@ -104,5 +105,7 @@ else
 fi
 
 # Configuring service
-service jenkins start || error_exit "Failed to start Jenkins"
+# service jenkins start || error_exit "Failed to start Jenkins"
 chkconfig jenkins on || error_exit "Failed to enable auto-start for Jenkins"
+
+reboot
