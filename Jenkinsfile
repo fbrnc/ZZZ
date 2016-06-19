@@ -37,7 +37,7 @@ node {
             input "Proceed with deploying to ${env.Environment}?"
         }
         echo "Deploying to ${env.Environment}"
-        sh '/usr/local/bin/stackformations blueprint:deploy \'demo-env-{env:Environment}-deploy{env:DEPLOY_ID}\''
+        sh '/usr/local/bin/stackformation blueprint:deploy \'demo-env-{env:Environment}-deploy{env:DEPLOY_ID}\''
     }
 
     withEnv(["Environment=prod", "DEPLOY_ID=${env.BUILD_NUMBER}"]) {
@@ -46,7 +46,7 @@ node {
             input "Proceed with deploying to ${env.Environment}?"
         }
         echo "Deploying to ${env.Environment}"
-        sh '/usr/local/bin/stackformations blueprint:deploy \'demo-env-{env:Environment}-deploy{env:DEPLOY_ID}\''
+        sh '/usr/local/bin/stackformation blueprint:deploy \'demo-env-{env:Environment}-deploy{env:DEPLOY_ID}\''
     }
 
 }
