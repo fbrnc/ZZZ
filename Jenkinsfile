@@ -44,6 +44,7 @@ node {
                 // }
                 echo "Deploying to ${env.Environment}"
                 sh "/usr/local/bin/stackformation blueprint:deploy --ansi --deleteOnTerminate 'demo-env-{env:Environment}-deploy{env:DEPLOY_ID}' || echo 'SFN FAILED!'"
+                sh "STACKNAME=$(/usr/local/bin/stackformation b:s:stackname 'demo-env-{env:Environment}-deploy{env:DEPLOY_ID}') && /usr/local/bin/stackformation stack:timeline $STACKNAME > ../artifacts/timeline_${env.Environment}.html"
             }
         }
     }
