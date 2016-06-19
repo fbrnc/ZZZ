@@ -17,15 +17,15 @@ blueprints:
 
 
 
-  - stackname: 'demo-env-{env:Environment}-deploy{env:DEPLOY_ID}'
+  - stackname: 'demo-env-{env:Environment}-deploy{env:BUILD_NUMBER}'
     template: 'deployment.template'
     parameters:
-      Build: '{env:BUILD}'
-      BuildPackage: 's3://{output:demo-global-s3-artifacts:BucketName}/hitcounter/{env:BUILD}/hitcounter.phar'
+      Build: '{env:BUILD_NUMBER}'
+      DeployId: '{env:BUILD_NUMBER}'
+      BuildPackage: 's3://{output:demo-global-s3-artifacts:BucketName}/hitcounter/{env:BUILD_NUMBER}/hitcounter.phar'
       KeyPair: '{var:KeyName}'
       AppInstanceProfile: '{output:demo-iam:AppInstanceProfile}'
       EnvironmentName: '{env:Environment}'
-      DeployId: '{env:DEPLOY_ID}'
       InternalDomainName: '{parameter:demo-global-vpc:InternalHostedZoneName}'
       InstanceCounter: '{output:demo-cfn-lambdahelper:CountAsgInstancesArn}'
       GreenBlueSwitcher: '{output:demo-cfn-lambdahelper:GreenBlueSwitcherArn}'
@@ -37,8 +37,7 @@ blueprints:
       Elb: '{resource:demo-env-tst-setup:Elb}'
       AppSg: '{resource:demo-env-tst-setup:AppSg}'
     tags:
-      Build: '{env:BUILD}'
-      DeployId: '{env:DEPLOY_ID}'
+      Build: '{env:BUILD_NUMBER}'
       # following tags are also used by the stack-deleter
       Project: 'demo'
       Environment: '{env:Environment}'
