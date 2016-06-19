@@ -5,8 +5,8 @@
     "email": "mail@firstname-lastname.de"
   }],
   "require": {
-    "aoepeople/cfn-vpc": "dev-master",
-    "aoepeople/cfn-lambdahelper": "dev-master",
+    "aoepeople/cfn-vpc": "*",
+    "aoepeople/cfn-lambdahelper": "*",
     "aoepeople/stackformation": "~3"
   },
   "config": {"bin-dir": "bin"}

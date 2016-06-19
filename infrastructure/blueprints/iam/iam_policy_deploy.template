@@ -22,6 +22,10 @@
                 "ec2:Describe*",
                 "iam:PassRole",
                 "lambda:InvokeFunction",
+                "autoscaling:CreateLaunchConfiguration",
+                "autoscaling:CreateAutoScalingGroup",
+                "autoscaling:PutScalingPolicy",
+                "cloudwatch:PutMetricAlarm",
                 "cloudformation:Describe*",
                 "cloudformation:ListStacks",
                 "logs:Describe*"
