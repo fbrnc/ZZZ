@@ -27,24 +27,15 @@ node {
     dir('tests/unit') {
         sh "/usr/local/bin/phpunit --log-junit ../../artifacts/junit.xml"
     }
-    step([$class: 'JUnitResultArchiver', testResults: '**/artifacts/junit.xml'])
+    step([$class: 'JUnitResultArchiver', testResults: 'artifacts/junit.xml'])
 
-    withEnv(["Environment=stage", "DEPLOY_ID=${env.BUILD_NUMBER}"]) {
+    withEnv(["Environment=tst", "DEPLOY_ID=${env.BUILD_NUMBER}", "AWS_DEFAULT_REGION=us-west-2"]) {
         stage name: "Deploy to ${env.Environment}", concurrency: 1
-        timeout(time: 10, unit: 'MINUTES') {
-            input "Proceed with deploying to ${env.Environment}?"
-        }
+        //timeout(time: 10, unit: 'MINUTES') {
+        //    input "Proceed with deploying to ${env.Environment}?"
+        //}
         echo "Deploying to ${env.Environment}"
-        sh '/usr/local/bin/stackformation blueprint:deploy \'demo-env-{env:Environment}-deploy{env:DEPLOY_ID}\''
-    }
-
-    withEnv(["Environment=prod", "DEPLOY_ID=${env.BUILD_NUMBER}"]) {
-        stage name: "Deploy to ${env.Environment}", concurrency: 1
-        timeout(time: 10, unit: 'MINUTES') {
-            input "Proceed with deploying to ${env.Environment}?"
-        }
-        echo "Deploying to ${env.Environment}"
-        sh '/usr/local/bin/stackformation blueprint:deploy \'demo-env-{env:Environment}-deploy{env:DEPLOY_ID}\''
+        sh "/usr/local/bin/stackformation blueprint:deploy --deleteOnTerminate 'demo-env-{env:Environment}-deploy{env:DEPLOY_ID}'"
     }
 
 }
