@@ -6,7 +6,7 @@
   }],
   "require": {
     "aoepeople/cfn-vpc": "*",
-    "aoepeople/cfn-lambdahelper": "*",
+    "aoepeople/cfn-lambdahelper": "dev-master",
     "aoepeople/stackformation": "~3"
   },
   "config": {"bin-dir": "bin"}
