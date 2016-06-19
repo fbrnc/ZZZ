@@ -43,11 +43,13 @@ node {
                 //     input "Proceed with deploying to ${env.Environment}?"
                 // }
                 echo "Deploying to ${env.Environment}"
-                sh "/usr/local/bin/stackformation blueprint:deploy --ansi --deleteOnTerminate 'demo-env-{env:Environment}-deploy{env:DEPLOY_ID}' || echo 'SFN FAILED!'"
-                sh "/usr/local/bin/stackformation stack:timeline 'demo-env-${env.Environment}-deploy${env.DEPLOY_ID}' > ../artifacts/timeline_${env.Environment}.html"
+                //sh "/usr/local/bin/stackformation blueprint:deploy --ansi --deleteOnTerminate 'demo-env-{env:Environment}-deploy{env:DEPLOY_ID}' || echo 'SFN FAILED!'"
+                //sh "/usr/local/bin/stackformation stack:timeline 'demo-env-${env.Environment}-deploy${env.DEPLOY_ID}' > ../artifacts/timeline_${env.Environment}.html"
             }
-            publishHTML(target: [reportDir: 'artifacts', reportFiles: "timeline_${env.Environment}.html", reportName: "Deploy Timeline for ${env.Environment}"])
+            //publishHTML(target: [reportDir: 'artifacts', reportFiles: "timeline_${env.Environment}.html", reportName: "Deploy Timeline for ${env.Environment}"])
         }
+
+        echo "Done"
     }
 
 }
