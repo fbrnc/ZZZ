@@ -17,11 +17,11 @@ blueprints:
 
 
 
-  - stackname: 'demo-env-{env:Environment}-deploy{env:BUILD_NUMBER}'
+  - stackname: 'demo-env-{env:Environment}-deploy{env:DEPLOY_ID}'
     template: 'deployment.template'
     parameters:
       Build: '{env:BUILD_NUMBER}'
-      DeployId: '{env:BUILD_NUMBER}'
+      DeployId: '{env:DEPLOY_ID}'
       BuildPackage: 's3://{output:demo-global-s3-artifacts:BucketName}/hitcounter/{env:BUILD_NUMBER}/hitcounter.phar'
       KeyPair: '{var:KeyName}'
       AppInstanceProfile: '{output:demo-iam:AppInstanceProfile}'
