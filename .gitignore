@@ -1,2 +1,9 @@
 vendor/
 composer.lock
+/infrastructure/bin/jp.php
+/infrastructure/bin/stackformation.php
+.env*
+*.pem
+/infrastructure/blueprints/cfn-lambdahelper/
+/infrastructure/blueprints/cfn-vpc/
+/infrastructure/blueprints/blueprints.yml
