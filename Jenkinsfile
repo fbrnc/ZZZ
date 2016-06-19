@@ -26,7 +26,7 @@ node {
     stage 'Unit Tests'
     dir('tests/unit') {
         sh "/usr/local/bin/phpunit --log-junit ../../artifacts/junit.xml"
-        step([$class: 'JUnitResultArchiver', testResults: 'artifacts/junit.xml'])
+        step([$class: 'JUnitResultArchiver', testResults: '**/artifacts/junit.xml'])
     }
 
     withEnv(["Environment=stage", "DEPLOY_ID=${env.BUILD_NUMBER}"]) {
