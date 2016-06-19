@@ -10,7 +10,7 @@ node {
 
     dir('nano-app') {
         stage "Build"
-        sh '/usr/local/bin/composer --no-interaction install'
+        sh '/usr/local/bin/composer --no-progress --no-interaction install'
 
         stage "Static Code Analysis"
         sh '../tests/static/phplint.sh src web > /dev/null'
@@ -29,12 +29,17 @@ node {
     }
     step([$class: 'JUnitResultArchiver', testResults: 'artifacts/junit.xml'])
 
+    stage "Prepare Infrastructure code"
+    dir('infrastructure') {
+        sh '/usr/local/bin/composer --no-dev --no-progress --no-interaction install'
+    }
+
     withEnv(["Environment=tst", "DEPLOY_ID=${env.BUILD_NUMBER}", "AWS_DEFAULT_REGION=us-west-2", "USE_INSTANCE_PROFILE=1"]) {
         dir('infrastructure') {
             stage name: "Deploy to ${env.Environment}", concurrency: 1
-            //timeout(time: 10, unit: 'MINUTES') {
-            //    input "Proceed with deploying to ${env.Environment}?"
-            //}
+            // timeout(time: 10, unit: 'MINUTES') {
+            //     input "Proceed with deploying to ${env.Environment}?"
+            // }
             echo "Deploying to ${env.Environment}"
             sh "/usr/local/bin/stackformation blueprint:deploy --deleteOnTerminate 'demo-env-{env:Environment}-deploy{env:DEPLOY_ID}'"
         }
