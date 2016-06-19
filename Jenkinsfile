@@ -29,7 +29,7 @@ node {
     }
     step([$class: 'JUnitResultArchiver', testResults: 'artifacts/junit.xml'])
 
-    withEnv(["Environment=tst", "DEPLOY_ID=${env.BUILD_NUMBER}", "AWS_DEFAULT_REGION=us-west-2"]) {
+    withEnv(["Environment=tst", "DEPLOY_ID=${env.BUILD_NUMBER}", "AWS_DEFAULT_REGION=us-west-2", "USE_INSTANCE_PROFILE=1"]) {
         stage name: "Deploy to ${env.Environment}", concurrency: 1
         //timeout(time: 10, unit: 'MINUTES') {
         //    input "Proceed with deploying to ${env.Environment}?"
