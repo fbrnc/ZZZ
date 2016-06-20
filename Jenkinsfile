@@ -48,6 +48,8 @@ node {
             }
             publishHTML(target: [reportDir: 'artifacts', reportFiles: "timeline_${env.Environment}.html", reportName: "Deploy Timeline for ${env.Environment}"])
         }
+
+        echo "Done"
     }
 
 }
