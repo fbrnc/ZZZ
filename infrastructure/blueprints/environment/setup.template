@@ -137,7 +137,7 @@
       "Type": "AWS::Route53::RecordSet",
       "Properties": {
         "HostedZoneName" : "{Ref:DomainName}.",
-        "Name" : "www-{Ref:EnvironmentName}.{Ref:DomainName}.",
+        "Name" : "api-{Ref:EnvironmentName}.{Ref:DomainName}.",
         "TTL": 60,
         "Type": "CNAME",
         "ResourceRecords" : [ { "Fn::GetAtt" : [ "Elb", "DNSName" ] } ]

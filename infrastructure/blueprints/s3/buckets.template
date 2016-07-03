@@ -33,13 +33,7 @@
     "Bucket": {
       "Type": "AWS::S3::Bucket",
       "Properties": {
-        "BucketName": {"Ref": "BucketName"},
-        "Tags": [
-          {"Key": "Name", "Value": { "Ref": "BucketName" }},
-          {"Key": "Project", "Value": "ecom"},
-          {"Key": "Account", "Value": "prod"},
-          {"Key": "Environment", "Value": "ALL"}
-        ]
+        "BucketName": {"Ref": "BucketName"}
       }
     },
 

@@ -1,0 +1,8 @@
+blueprints:
+
+  - stackname: 'demo-env-{env:Environment}-website'
+    description: 'Static website hosted in S3'
+    template: '../s3/buckets.template'
+    parameters:
+      Domain: '{var:HostedZoneName}'
+      Subdomain: 'www-{env:Environment}'
