@@ -35,7 +35,7 @@
           "Statement": [{
             "Effect": "Allow",
             "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::{Ref:BucketName}/*",
+            "Resource": "arn:aws:s3:::{Ref:Subdomain}.{Ref:Domain}/*",
             "Principal": {"AWS": "*"}
           }]
         }
@@ -49,7 +49,7 @@
         "Name" : "{Ref:Subdomain}.{Ref:Domain}.",
         "TTL": 10,
         "Type": "CNAME",
-        "ResourceRecords" : [ {"Fn::GetAtt": ["Bucket", "DomainName"]} ]
+        "ResourceRecords" : [ "{Ref:Subdomain}.{Ref:Domain}.s3-website-{Ref:AWS::Region}.amazonaws.com." ]
       }
     }
   }

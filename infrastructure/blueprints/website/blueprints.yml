@@ -2,7 +2,8 @@ blueprints:
 
   - stackname: 'demo-env-{env:Environment}-website'
     description: 'Static website hosted in S3'
-    template: '../s3/buckets.template'
+    template: 'website.template'
     parameters:
       Domain: '{var:HostedZoneName}'
       Subdomain: 'www-{env:Environment}'
+    #aws s3 sync --delete blueprints/website/content/ s3://www-tst.aoeplay.net/
