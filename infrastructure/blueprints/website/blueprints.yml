@@ -6,4 +6,8 @@ blueprints:
     parameters:
       Domain: '{var:HostedZoneName}'
       Subdomain: 'www-{env:Environment}'
-    #aws s3 sync --delete blueprints/website/content/ s3://www-tst.aoeplay.net/
+    after:
+      '/^(UPDATE|CREATE)_COMPLETE|NO_UPDATES_PERFORMED$/':
+        - 'aws s3 sync --delete content/ s3://www-tst.aoeplay.net/'
+      '/.*/':
+        - 'echo "Done deploying blueprint \"$BLUEPRINT\" to \"$STACKNAME\""'
