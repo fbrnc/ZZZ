@@ -10,4 +10,4 @@ blueprints:
       '/^(UPDATE|CREATE)_COMPLETE|NO_UPDATES_PERFORMED$/':
         - 'aws s3 sync --delete content/ s3://www-tst.aoeplay.net/'
       '/.*/':
-        - 'echo "Done deploying blueprint \"$BLUEPRINT\" to \"$STACKNAME\""'
+        - 'echo "Done deploying blueprint \"$BLUEPRINT\" to \"$STACKNAME\" (status: \"$STATUS\")"'
