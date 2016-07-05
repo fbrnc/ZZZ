@@ -4,18 +4,30 @@
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <script>
         var apiUrl = 'http://${APIURL}/';
+        var you;
         jQuery(function() {
             $.ajax(apiUrl, {
                 method: "PUT",
-                contentType: "text/plain",
-                success: function(result) {
-                    $('#counter').text(result);
+                success: function(counter) {
+                    you = counter;
+                    $('#you').text(counter);
                 }
             });
+            window.setInterval(function(){
+                $.ajax(apiUrl, {
+                    method: "GET",
+                    success: function(counter) {
+                        if (counter != you) {
+                            $('#current').text("Current counter: " + counter);
+                        }
+                    }
+                });
+            }, 1000);
         });
     </script>
 </head>
 <body>
-    <h1>You are visitor #<span id="counter"></span></h1>
+    <h1>You are visitor #<span id="you"></span></h1>
+    <h2 id="current"></h2>
 </body>
 </html>

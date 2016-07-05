@@ -6,7 +6,6 @@ blueprints:
     parameters:
       Domain: '{var:HostedZoneName}'
       Subdomain: 'www-{env:Environment}'
-      AllowFrom: 'api-{env:Environment}.{var:HostedZoneName}'
     after: |
       if [[ $STATUS =~ ^(UPDATE|CREATE)_COMPLETE|NO_UPDATES_PERFORMED$ ]] ; then
         aws s3 sync --delete --exclude=index.html content/ s3://www-{env:Environment}.aoeplay.net/

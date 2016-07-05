@@ -9,9 +9,6 @@
     },
     "Subdomain": {
       "Type": "String"
-    },
-    "AllowFrom": {
-      "Type": "String"
     }
   },
 
@@ -25,16 +22,6 @@
         "WebsiteConfiguration" : {
           "IndexDocument" : "index.html",
           "ErrorDocument" : "error.html"
-        },
-        "CorsConfiguration": {
-          "CorsRules": [
-            {
-              "AllowedHeaders": ["*"],
-              "AllowedMethods": [ "GET", "PUT", "DELETE"],
-              "AllowedOrigins": [{ "Ref": "AllowFrom" }],
-              "MaxAge": "3600"
-            }
-          ]
         }
       }
     },

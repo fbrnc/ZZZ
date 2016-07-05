@@ -7,6 +7,7 @@ $dsn = getenv('DSN') ? getenv('DSN') : 'sqlite:/tmp/test.db';
 
 $counter = new Counter(new PDO($dsn));
 
+header('Content-Type:text/plain');
 header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Methods: GET, PUT, DELETE, OPTIONS");
 
