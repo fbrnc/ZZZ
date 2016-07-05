@@ -9,7 +9,7 @@ $counter = new Counter(new PDO($dsn));
 
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET': echo $counter->getCurrentCounter(); break;
-    case 'PUT': $counter->increaseCounter(); echo "OK"; break;
+    case 'PUT': $counter->increaseCounter(); echo $counter->getCurrentCounter(); break;
     case 'DELETE': $counter->reset(); echo "OK"; break;
 }
 
