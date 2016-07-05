@@ -6,5 +6,12 @@ blueprints:
     parameters:
       Domain: '{var:HostedZoneName}'
       Subdomain: 'www-{env:Environment}'
-    after:
-      - 'if [[ $STATUS =~ ^(UPDATE|CREATE)_COMPLETE|NO_UPDATES_PERFORMED$ ]] ; then aws s3 sync --delete content/ s3://www-tst.aoeplay.net/; fi'
+      AllowFrom: 'api-{env:Environment}.{var:HostedZoneName}'
+    after: |
+      if [[ $STATUS =~ ^(UPDATE|CREATE)_COMPLETE|NO_UPDATES_PERFORMED$ ]] ; then
+        aws s3 sync --delete --exclude=index.html content/ s3://www-{env:Environment}.aoeplay.net/
+        export APIURL='{resource:demo-env-{env:Environment}-setup:ElbDns}'
+        envsubst < content/index.html | aws s3 cp --content-type="text/html" - s3://www-{env:Environment}.aoeplay.net/index.html
+      else
+        echo "Skipping Upload"
+      fi

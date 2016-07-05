@@ -1,1 +1,21 @@
-<H1>HELLO WORLD!</H1>
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script>
+        var apiUrl = 'http://${APIURL}/';
+        jQuery(function() {
+            $.ajax(apiUrl, {
+                method: "PUT",
+                contentType: "text/plain",
+                success: function(result) {
+                    $('#counter').text(result);
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>You are visitor #<span id="counter"></span></h1>
+</body>
+</html>
