@@ -18,7 +18,10 @@
             "Action": ["sts:AssumeRole"]
           }]
         },
-        "ManagedPolicyArns": [{ "Ref": "ArtifactsReadPolicy"}]
+        "ManagedPolicyArns": [
+          { "Ref": "ArtifactsReadPolicy"},
+          "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+        ]
       }
     },
     "AppInstanceProfile": {

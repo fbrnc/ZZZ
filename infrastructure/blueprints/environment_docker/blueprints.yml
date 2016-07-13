@@ -1,0 +1,27 @@
+blueprints:
+
+  - stackname: 'demo-env-{env:Environment}-dockerdeploy{env:DEPLOY_ID}'
+    template: 'deployment.template'
+    parameters:
+      Build: '{env:BUILD_NUMBER}'
+      DeployId: '{env:DEPLOY_ID}'
+      BuildPackage: 's3://{output:demo-global-s3-artifacts:BucketName}/hitcounter/{env:BUILD_NUMBER}/hitcounter.phar'
+      KeyPair: '{var:KeyName}'
+      AppInstanceProfile: '{output:demo-iam:AppInstanceProfile}'
+      EnvironmentName: '{env:Environment}'
+      InternalDomainName: '{parameter:demo-global-vpc:InternalHostedZoneName}'
+      InstanceCounter: '{output:demo-cfn-lambdahelper:CountAsgInstancesArn}'
+      GreenBlueSwitcher: '{output:demo-cfn-lambdahelper:GreenBlueSwitcherArn}'
+      StackDeleter: '{output:demo-cfn-lambdahelper:StackDeleterArn}'
+      BastionSg: '{resource:demo-global-vpc-bastion:BastionSg}'
+      OldStacksBehavior: '{env:DELETE_OLD_STACKS:delete}'
+      PrivateSubnets: '{output:demo-global-vpc-subnets:FirstPrivateSubnet},{output:demo-global-vpc-subnets:SecondPrivateSubnet},{output:demo-global-vpc-subnets:ThirdPrivateSubnet}'
+      DbPwd: '{output:demo-env-tst-setup:DbPwd}'
+      Elb: '{resource:demo-env-tst-setup:Elb}'
+      AppSg: '{resource:demo-env-tst-setup:AppSg}'
+    tags:
+      Build: '{env:BUILD_NUMBER}'
+      # following tags are also used by the stack-deleter
+      Project: 'demo'
+      Environment: '{env:Environment}'
+      App: 'hitcounter'
