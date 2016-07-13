@@ -26,4 +26,4 @@ yum install -y docker
 service docker start
 
 $(aws ecr get-login --region {Ref:AWS::Region})
-docker run -d -t -i -p 8080:8080 {Ref:AWS::AccountId}.dkr.ecr.{Ref:AWS::Region}.amazonaws.com/nano:{Ref:Build}
+docker run -d -t -i -p 80:80 {Ref:AWS::AccountId}.dkr.ecr.{Ref:AWS::Region}.amazonaws.com/nano:{Ref:Build}
