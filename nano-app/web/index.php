@@ -2,7 +2,11 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$db = new PDO(getenv('DSN') ?: 'sqlite:/tmp/test.db', getenv('DB_PASSWD') ?: null);
+$db = new PDO(
+    getenv('DB_DSN') ?: 'sqlite:/tmp/test.db',
+    getenv('DB_USER') ?: null,
+    getenv('DB_PASSWD') ?: null
+);
 $counter = new Counter($db);
 
 header('Content-Type:text/plain');

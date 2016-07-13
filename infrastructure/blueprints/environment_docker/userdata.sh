@@ -25,5 +25,13 @@ yum update -y
 yum install -y docker
 service docker start
 
+export DB_DSN="mysql:host=db-{Ref:Environment}.{Ref:InternalDomainName};dbname=app_{Ref:Environment}"
+export DB_USER="app_{Ref:Environment}"
+export DB_PASSWD="{Ref:DbPwd}"
+
 $(aws ecr get-login --region {Ref:AWS::Region})
-docker run -d -t -i -p 80:80 {Ref:AWS::AccountId}.dkr.ecr.{Ref:AWS::Region}.amazonaws.com/nano:{Ref:Build}
+docker run -d -t -i -p 80:80 \
+    -e DB_DSN=$DB_DSN \
+    -e DB_USER=$DB_USER \
+    -e DB_PASSWD=$DB_PASSWD \
+    {Ref:AWS::AccountId}.dkr.ecr.{Ref:AWS::Region}.amazonaws.com/nano:{Ref:Build}

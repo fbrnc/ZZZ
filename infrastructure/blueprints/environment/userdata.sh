@@ -21,6 +21,10 @@ function done_exit {
 }
 trap "done_exit" EXIT
 
+export DB_DSN="mysql:host=db-{Ref:Environment}.{Ref:InternalDomainName};dbname=app_{Ref:Environment}"
+export DB_USER="app_{Ref:Environment}"
+export DB_PASSWD="{Ref:DbPwd}"
+
 # Install PHP
 yum -y install php56-cli php56-pdo php56-mysqlnd || error_exit "Failed to install git and php"
 sed -i "s/.*date.timezone.*/date.timezone = \"America\/Los_Angeles\"/" /etc/php.ini

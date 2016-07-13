@@ -107,7 +107,7 @@
       "Type": "AWS::Route53::RecordSet",
       "Properties": {
         "HostedZoneName" : "{Ref:InternalDomainName}.",
-        "Name" : "magentodb-{Ref:EnvironmentName}.{Ref:InternalDomainName}.",
+        "Name" : "db-{Ref:EnvironmentName}.{Ref:InternalDomainName}.",
         "TTL": 10,
         "Type": "CNAME",
         "ResourceRecords" : [ { "Fn::GetAtt" : [ "Database", "Endpoint.Address" ] } ]
