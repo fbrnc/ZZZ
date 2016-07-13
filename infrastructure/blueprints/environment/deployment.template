@@ -70,7 +70,7 @@
           {"Key": "App", "Value": "hitcounter"},
           {"Key": "Environment", "Value": {"Ref": "EnvironmentName"}}
         ],
-        "Min": 1,
+        "Min": 2,
         "Max": 10,
         "Factor": 1
       }
