@@ -47,6 +47,9 @@ node {
                 sh "bin/stackformation.php stack:timeline 'demo-env-${env.Environment}-deploy${env.DEPLOY_ID}' > ../artifacts/timeline_${env.Environment}.html"
             }
             publishHTML(target: [reportDir: 'artifacts', reportFiles: "timeline_${env.Environment}.html", reportName: "Deploy Timeline for ${env.Environment}"])
+
+            stage name: "Stress testing ${env.Environment}", concurrency: 1
+            sh "bash tests/stress/stress_test.sh http://api-${env.Environment}.aoeplay.net/"
         }
 
         echo "Done"
