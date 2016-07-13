@@ -4,6 +4,7 @@ composer.lock
 /infrastructure/bin/stackformation.php
 .env*
 *.pem
+*.phar
 /infrastructure/blueprints/cfn-lambdahelper/
 /infrastructure/blueprints/cfn-vpc/
 /infrastructure/blueprints/blueprints.yml
