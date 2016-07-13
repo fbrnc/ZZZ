@@ -25,11 +25,14 @@ yum update -y
 yum install -y docker
 service docker start
 
-export DB_DSN="mysql:host=db-{Ref:EnvironmentName}.{Ref:InternalDomainName};dbname=app_{Ref:Environment}"
+export DB_DSN="mysql:host=db-{Ref:EnvironmentName}.{Ref:InternalDomainName};dbname=app_{Ref:EnvironmentName}"
 export DB_USER="app_{Ref:EnvironmentName}"
 export DB_PASSWD="{Ref:DbPwd}"
 
+# Login to ECR
 $(aws ecr get-login --region "{Ref:AWS::Region}")
+
+# Run container
 docker run -d -t -i -p 80:80 \
     -e DB_DSN=$DB_DSN \
     -e DB_USER=$DB_USER \
