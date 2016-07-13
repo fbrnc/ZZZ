@@ -2,10 +2,7 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-// $dsn = getenv('DSN') ? getenv('DSN') : 'sqlite::memory:';
-$dsn = getenv('DSN') ? getenv('DSN') : 'sqlite:/tmp/test.db';
-
-$counter = new Counter(new PDO($dsn));
+$counter = new Counter(new PDO(getenv('DSN') ?: 'sqlite:/tmp/test.db'));
 
 header('Content-Type:text/plain');
 header('Access-Control-Allow-Origin: *');
