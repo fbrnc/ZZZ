@@ -28,7 +28,7 @@ node {
         stage 'Docker'
         sh '$(aws ecr get-login --region us-west-2)'
         sh "docker build -t 443171610680.dkr.ecr.us-west-2.amazonaws.com/nano:${env.BUILD_NUMBER} ."
-        sh "docker push 443171610680.dkr.ecr.us-west-2.amazonaws.com/nano:${env.BUILD_NUMBER}""
+        sh "docker push 443171610680.dkr.ecr.us-west-2.amazonaws.com/nano:${env.BUILD_NUMBER}"
 
         stage 'Unit Tests'
         dir('tests/unit') {
