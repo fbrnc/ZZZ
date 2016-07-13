@@ -79,6 +79,7 @@
 
     "GenerateDbPassword": {
       "Type": "Custom::PasswordGenerator",
+      "DeletionPolicy": "Retain",
       "Properties": {
         "ServiceToken": {"Ref": "PasswordGeneratorArn"}
       }

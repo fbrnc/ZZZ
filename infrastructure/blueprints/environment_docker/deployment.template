@@ -62,6 +62,7 @@
 
     "CountInstances": {
       "Type": "Custom::InstanceCounter",
+      "DeletionPolicy": "Retain",
       "Properties": {
         "ServiceToken": {"Ref": "InstanceCounter"},
         "AutoScalingGroupTags": [
@@ -164,6 +165,7 @@
     "GreenBlueSwitch": {
       "DependsOn": "AppAsg",
       "Type": "Custom::GreenBlueSwitcher",
+      "DeletionPolicy": "Retain",
       "Properties": {
         "ServiceToken": {"Ref": "GreenBlueSwitcher"},
         "LoadBalancerName": { "Ref": "Elb" },
@@ -176,6 +178,7 @@
       "Condition": "DeleteOldStacks",
       "DependsOn": "GreenBlueSwitch",
       "Type": "Custom::StackDeleter",
+      "DeletionPolicy": "Retain",
       "Properties": {
         "ServiceToken": {"Ref": "StackDeleter"},
         "TagFilter": {
