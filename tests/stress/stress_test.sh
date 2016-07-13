@@ -4,10 +4,7 @@ echoerr() { echo "$@" 1>&2; }
 error_exit() { echoerr $1; exit 1; }
 
 URL=$1
-
 if [ -z "$URL" ] ; then error_exit "No url found"; fi
-
-URL="${URL%/}/"
 
 # GETs
 echo "=== Testing GETs =========================================="

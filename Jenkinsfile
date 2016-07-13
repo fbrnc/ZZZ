@@ -48,6 +48,9 @@ node {
             }
             publishHTML(target: [reportDir: 'artifacts', reportFiles: "timeline_${env.Environment}.html", reportName: "Deploy Timeline for ${env.Environment}"])
 
+            stage name: "Integration test ${env.Environment}", concurrency: 1
+            sh "bash -x tests/integration/integration_test.sh http://api-${env.Environment}.aoeplay.net/"
+
             stage name: "Stress testing ${env.Environment}", concurrency: 1
             sh "bash tests/stress/stress_test.sh http://api-${env.Environment}.aoeplay.net/"
         }
