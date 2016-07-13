@@ -12,6 +12,7 @@ $counter = new Counter($db);
 header('Content-Type:text/plain');
 header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Methods: GET, PUT, DELETE, OPTIONS");
+header("X-Instance: " . (getenv('INSTANCE_ID') ?: 'unknown'));
 
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET': echo $counter->getCurrentCounter(); break;

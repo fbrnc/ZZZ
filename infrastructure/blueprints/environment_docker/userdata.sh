@@ -28,6 +28,7 @@ service docker start
 export DB_DSN="mysql:host=db-{Ref:EnvironmentName}.{Ref:InternalDomainName};dbname=app_{Ref:EnvironmentName}"
 export DB_USER="app_{Ref:EnvironmentName}"
 export DB_PASSWD="{Ref:DbPwd}"
+export INSTANCE_ID=$(curl http://169.254.169.254/latest/meta-data/instance-id)
 
 # Login to ECR
 $(aws ecr get-login --region "{Ref:AWS::Region}")
@@ -37,4 +38,5 @@ docker run -d -t -i -p 80:80 \
     -e DB_DSN=$DB_DSN \
     -e DB_USER=$DB_USER \
     -e DB_PASSWD=$DB_PASSWD \
+    -e INSTANCE_ID=$INSTANCE_ID \
     "{Ref:AWS::AccountId}.dkr.ecr.{Ref:AWS::Region}.amazonaws.com/nano:{Ref:Build}"
