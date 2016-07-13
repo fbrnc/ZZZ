@@ -1,6 +1,6 @@
 blueprints:
 
-  - stackname: 'demo-env-{env:Environment}-dockerdeploy{env:DEPLOY_ID}'
+  - stackname: 'demo-env-{env:Environment}-deploydocker{env:DEPLOY_ID}'
     template: 'deployment.template'
     parameters:
       Build: '{env:BUILD_NUMBER}'

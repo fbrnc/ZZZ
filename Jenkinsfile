@@ -49,7 +49,7 @@ node {
                 // }
                 echo "Deploying to ${env.Environment}"
                 //sh "bin/stackformation.php blueprint:deploy --ansi --deleteOnTerminate 'demo-env-{env:Environment}-deploy{env:DEPLOY_ID}' || echo 'Stackformation deployment failed'"
-                sh "bin/stackformation.php blueprint:deploy --ansi --deleteOnTerminate 'demo-env-{env:Environment}-dockerdeploy{env:DEPLOY_ID}' || echo 'Stackformation deployment failed'"
+                sh "bin/stackformation.php blueprint:deploy --ansi --deleteOnTerminate 'demo-env-{env:Environment}-deploydocker{env:DEPLOY_ID}' || echo 'Stackformation deployment failed'"
                 sh "bin/stackformation.php stack:timeline 'demo-env-${env.Environment}-deploy${env.DEPLOY_ID}' > ../artifacts/timeline_${env.Environment}.html"
             }
             publishHTML(target: [reportDir: 'artifacts', reportFiles: "timeline_${env.Environment}.html", reportName: "Deploy Timeline for ${env.Environment}"])
