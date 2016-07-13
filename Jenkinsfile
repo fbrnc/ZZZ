@@ -25,6 +25,10 @@ node {
         }
         step([$class: 'ArtifactArchiver', artifacts: 'artifacts/hitcounter.phar', fingerprint: true])
 
+        stage 'Docker'
+        docker build -t 443171610680.dkr.ecr.us-west-2.amazonaws.com/nano:${env.BUILD_NUMBER} .
+        docker push 443171610680.dkr.ecr.us-west-2.amazonaws.com/nano:${env.BUILD_NUMBER}
+
         stage 'Unit Tests'
         dir('tests/unit') {
             sh "/usr/local/bin/phpunit --colors --log-junit ../../artifacts/junit.xml"

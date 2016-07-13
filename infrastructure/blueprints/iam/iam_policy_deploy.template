@@ -30,7 +30,8 @@
                 "cloudwatch:PutMetricAlarm",
                 "cloudformation:Describe*",
                 "cloudformation:ListStacks",
-                "logs:Describe*"
+                "logs:Describe*",
+                "ecr:*"
               ],
               "Resource": "*"
             }
