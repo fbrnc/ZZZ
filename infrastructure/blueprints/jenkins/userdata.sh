@@ -97,7 +97,10 @@ else
     rm "/tmp/restore.tar.gz"
 fi
 
-service docker start  || error_exit "Failed installing docker"
+# Installing docker
+yum -y install docker || error_exit "Failed to install docker"
+service docker start  || error_exit "Failed to start docker"
+chkconfig docker on  || error_exit "Failed to enable auto-start for docker"
 sudo usermod -a -G docker jenkins || error_exit "Failed adding jenkins to docker group"
 
 # Configuring service
