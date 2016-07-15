@@ -39,9 +39,9 @@ blueprints:
 
 
   - stackname: 'demo-global-vpc-bastion'
-    template: 'bastion.template'
+    template: '../cfn-vpc/bastion.template'
     parameters:
-      PublicSubnet: '{output:demo-global-vpc-subnets:FirstPublicSubnet}'
+      PublicSubnets: '{output:demo-global-vpc-subnets:FirstPublicSubnet},{output:demo-global-vpc-subnets:SecondPublicSubnet},{output:demo-global-vpc-subnets:ThirdPublicSubnet}'
       KeyPair: '{var:KeyName}'
       Vpc: '{output:demo-global-vpc:VPC}'
       EnvironmentName: 'all'
