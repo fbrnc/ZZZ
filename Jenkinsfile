@@ -12,7 +12,7 @@ node {
 
         dir('nano-app') {
             stage "Static Code Analysis"
-            sh '../tests/static/phplint.sh src web > /dev/null'
+            sh '../tests/static/phplint.sh . > /dev/null'
 
             stage "Build"
             sh '/usr/local/bin/box build'
