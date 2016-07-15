@@ -1,11 +1,7 @@
 <?php
 
-/**
- * Class ${NAME}
- *
- * @author Fabrizio Branca
- * @since 2016-06-03
- */
+require __DIR__ . '/../../../nano-app/Counter.php';
+
 class CounterTest extends PHPUnit_Framework_TestCase {
 
     /**
@@ -43,7 +39,7 @@ class CounterTest extends PHPUnit_Framework_TestCase {
     /**
      * @test
      */
-    public function zeroAfterReseting() {
+    public function zeroAfterResetting() {
         $this->counter->increaseCounter();
         $counterFirst = $this->counter->getCurrentCounter();
         $this->assertGreaterThan(0, $counterFirst);

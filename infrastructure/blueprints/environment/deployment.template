@@ -93,8 +93,7 @@
           {"Key": "Environment", "Value": {"Ref": "EnvironmentName"}, "PropagateAtLaunch": true},
           {"Key": "App", "Value": "hitcounter", "PropagateAtLaunch": true},
           {"Key": "Build", "Value": {"Ref": "Build"}, "PropagateAtLaunch": true},
-          {"Key": "inspector:user", "Value": "ec2-user", "PropagateAtLaunch": true},
-          {"Key": "inspector:jump", "Value": "Type:Bastion", "PropagateAtLaunch": true}
+          {"Key": "inspector", "Value": "Type:Bastion", "PropagateAtLaunch": true}
         ]
       }
     },

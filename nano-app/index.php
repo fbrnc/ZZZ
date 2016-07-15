@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/Counter.php';
 
 $db = new PDO(
     getenv('DB_DSN') ?: 'sqlite:/tmp/test.db',

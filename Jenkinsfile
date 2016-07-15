@@ -11,13 +11,10 @@ node {
         sh "rm -rf artifacts ; mkdir artifacts"
 
         dir('nano-app') {
-            stage "Build"
-            sh '/usr/local/bin/composer --ansi --no-progress --no-interaction install'
-
             stage "Static Code Analysis"
             sh '../tests/static/phplint.sh src web > /dev/null'
 
-            stage "Package"
+            stage "Build"
             sh '/usr/local/bin/box build'
 
             stage "Publish Artifact"
